@@ -126,3 +126,20 @@ void executeInstruction(chip8 *chip8)
 
 	chip8Instructions[(opcode & 0xF000u)](chip8);
 }
+
+/**
+ * updates the system timers for the emulator
+ * @param chip8 
+ */
+void updateTimers(chip8 *chip8)
+{
+	if (chip8->delayTimer > 0)
+	{
+		chip8->delayTimer--;
+	}
+
+	if (chip8->soundTimer > 0)
+	{
+		chip8->soundTimer--;
+	}
+}

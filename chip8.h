@@ -81,4 +81,6 @@ void initializeSystem(chip8 *chip8);
 void resetSystem(chip8 *chip8);
 uint16_t fetchOpcode(chip8 *chip8);
 void executeInstruction(chip8 *chip8);
+void updateTimers(chip8 *chip8);
+
 #endif // CHIP8
