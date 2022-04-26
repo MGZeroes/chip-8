@@ -52,4 +52,6 @@ struct chip8
 	uint8_t isPaused;
 };
 
+uint16_t fetchOpcode(chip8 *chip8);
+void executeInstruction(chip8 *chip8);
 #endif // CHIP8

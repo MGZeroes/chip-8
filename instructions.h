@@ -42,4 +42,30 @@ void LDBX(chip8 *chip8);
 void LDIX(chip8 *chip8);
 void LDXI(chip8 *chip8);
 
+void ZERO(chip8 *chip8);
+void ARITHMETIC(chip8 *chip8);
+void KEYBOARD(chip8 *chip8);
+void INDEX(chip8 *chip8);
+
+void (*chip8Instructions[16])(chip8 *chip8);
+void (*chip8InstructionsArithmetic[16])(chip8 *chip8);
+
+const void *chip8Instructions[16] = 
+{
+	ZERO,
+	JP,		CALL,		SEXB,	SNEXB, 
+	SEXY,	LDXB,		ADDXB,	ARITHMETIC, 
+	SNEXY,	LDIA,		JPVA,	RNDXB, 
+	DRWXYN, KEYBOARD,	INDEX
+};
+
+const void *chip8InstructionsArithmetic[16] = 
+{
+	LDXY, 
+	ORXY,	ANDXY,	XORXY,	ADDXY, 
+	SUBXY,	SUBXY,	SHRX,	SUBNXY, 
+	SHLX,	NOP,	NOP,	NOP, 
+	NOP,	NOP,	SNEXY
+};
+
 #endif // CHIP8_INSTRUCTIONS
