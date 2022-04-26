@@ -55,6 +55,49 @@ void initializeSystem(chip8 *chip8)
 	chip8->keyPressed = FALSE;
 }
 
+/**
+ * similar to the initialize function,
+ * the RAM is not completely cleared
+ * @param chip8 
+ */
+void resetSystem(chip8 *chip8)
+{
+	chip8->isRunning = TRUE;
+	chip8->drawingScreen = FALSE;
+	chip8->isPaused = FALSE;
+
+	chip8->pc = PROGRAM_START;
+	chip8->opcode = 0;
+	chip8->sp = 0;
+	chip8->I = 0;
+
+	// clear display (memory)
+	for (int i = 0; i < VIDEO_HEIGHT; i++)
+	{
+		for (int j = 0; j < VIDEO_WIDTH; j++)
+		{
+			chip8->gfx[i][j] = 0;
+		}
+	}
+
+	// clear ram between fontset and program ram
+	for (int i = FONTSET_START; i < PROGRAM_START; i++)
+	{
+		chip8->ram[i] = 0;
+	}
+
+	// reset registers, fontset and keyboard
+	for (int i = 0; i < REGISTER_SIZE; i++)
+	{
+		chip8->V[i] = 0;
+		chip8->ram[i] = FONTSET[i];
+		chip8->keyboard[i] = FALSE;
+	}
+	
+	// Set timers to 0
+	chip8->delayTimer = 0;
+	chip8->soundTimer = 0;
+}
 
 /**
  * fetches the current opcode (opcode is 2 bytes)
