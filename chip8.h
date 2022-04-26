@@ -4,6 +4,8 @@
 #include <stdint.h>
 #include <stdio.h>
 
+#include "instructions.h"
+
 #define RAM_SIZE 4096
 #define STACK_SIZE 16
 #define REGISTER_SIZE 16
