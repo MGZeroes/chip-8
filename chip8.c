@@ -1,6 +1,56 @@
 #include "chip8.h"
 
 /**
+ * load ROM file into memory
+ * @param chip8 
+ * @param filename 
+ */
+void loadRom(chip8 *chip8, const char *filename)
+{
+	// open the file
+	FILE *rom = fopen(filename, "rb");
+
+	if (rom == NULL)
+	{
+		printf(stderr, "Failed to read ROM file %s", filename);
+		exit(0);
+	}
+
+	// get file size
+	fseek(rom, 0L, SEEK_END);
+	size_t fsize = ftell(rom);
+	rewind(rom);
+
+	if (fsize > (PROGRAM_END - PROGRAM_START))
+	{
+		printf(stderr, "ROM file too large");
+		exit(0);
+	}
+	
+
+	// allocate memory for the rom
+	uint8_t *buffer = (uint8_t*) malloc(sizeof(uint8_t) * fsize);
+
+	if (buffer == NULL)
+	{
+		printf(stderr, "Out of memory");
+		exit(0);
+	}
+
+	// get file content
+	fread(buffer, sizeof(uint8_t), fsize, rom);
+
+	// put file content into memory
+	for (size_t i = 0; i < fsize; i++) 
+	{
+		chip8->ram[i + 0x200] = buffer[i];
+	}
+
+	fclose(rom);
+	free(buffer);
+}
+
+/**
  * initilize the system to its startup state
  * @param chip8 
  */

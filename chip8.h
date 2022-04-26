@@ -15,6 +15,9 @@
 
 #define NUMBER_KEYS 16
 
+#define PROGRAM_START 0x200
+#define PROGRAM_END 0xFFF
+
 #define TRUE 1
 #define FALSE 0
 
@@ -77,6 +80,7 @@ struct chip8
 	uint8_t isPaused;
 };
 
+void loadRom(chip8 *chip8, const char *filename);
 void initializeSystem(chip8 *chip8);
 void resetSystem(chip8 *chip8);
 uint16_t fetchOpcode(chip8 *chip8);
